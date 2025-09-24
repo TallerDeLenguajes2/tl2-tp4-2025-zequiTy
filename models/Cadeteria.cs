@@ -120,12 +120,12 @@ public int PedidosEntregadosPorCadete(int idCadete)
     return listadoPedidos.Count(p => p.Estadopedido == Estado.Entregado && p.IdCadete != null && p.IdCadete == idCadete);
 }
 
-public double JornalACobrarPorCadete(int idCadete)
-{
-    int entregados = PedidosEntregadosPorCadete(idCadete);
-    return entregados * 500;
-}
-    public InformeCadeteria GenerarInforme()
+    public double JornalACobrarPorCadete(int idCadete)
+    {
+        int entregados = PedidosEntregadosPorCadete(idCadete);
+        return entregados * 500;
+    }
+ public InformeCadeteria GenerarInforme()
 {
     var informe = new InformeCadeteria();
 

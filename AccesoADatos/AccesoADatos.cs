@@ -146,8 +146,9 @@ public class AccesosADatosJSON : AccesosADatos
         bool okInfo = CargarCadeteria(rutaInfo);
         bool okCadetes = CargarCadetes(rutaCadetes);
 
-        return (okInfo && okCadetes) ? Cadeteria : null;
+        return (okInfo && okCadetes) ? Cadeteria : null;//operador ternario
     }
+
 }
 
 public class DatosCadeteria
