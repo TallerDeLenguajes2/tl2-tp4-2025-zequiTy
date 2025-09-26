@@ -8,37 +8,41 @@ namespace cadeteria.Controllers
     public class CadeteriaController : ControllerBase
     {
         private AccesosADatosJSON datosAcceso;
+        static Cadeteria cadeteria;
 
         public CadeteriaController()
         {
             datosAcceso = new AccesosADatosJSON();
+            cadeteria = datosAcceso.CargarDesdeArchivos("data/Cadeteria.json", "data/Cadetes.json");
+
         }
-[HttpGet("pedidos")]
-public ActionResult<List<Pedidos>> GetPedidos()
-{
-    var cadeteria = datosAcceso.CargarDesdeArchivos("data/Cadeteria.json", "data/Cadetes.json");
+        [HttpGet("pedidos")]
+        public ActionResult<List<Pedidos>> GetPedidos()
+        {
 
-    if (cadeteria == null)
-        return NotFound();
+            if (cadeteria == null)
 
-    return Ok(cadeteria.ListadoPedidos);
-}
+                return NotFound();
 
-[HttpGet("cadetes")]
-public ActionResult<List<Cadete>> GetCadetes()
-{
-    var cadeteria = datosAcceso.CargarDesdeArchivos("data/Cadeteria.json", "data/Cadetes.json");
 
-    if (cadeteria == null)
-        return NotFound();
+            return Ok(cadeteria.ListadoPedidos);
+        }
 
-    return Ok(cadeteria.ListadoCadetes);
-}
+        [HttpGet("cadetes")]
+        public ActionResult<List<Cadete>> GetCadetes()
+        {
+
+
+            if (cadeteria == null)
+                return NotFound();
+
+            return Ok(cadeteria.ListadoCadetes);
+        }
 
         [HttpGet("informe")]
         public ActionResult<InformeCadeteria> GetInforme()
         {
-            var cadeteria = datosAcceso.CargarDesdeArchivos("data/Cadeteria.json", "data/Cadetes.json");
+
 
             if (cadeteria == null)
                 return NotFound();
@@ -47,27 +51,68 @@ public ActionResult<List<Cadete>> GetCadetes()
 
             return Ok(informe);
         }
-/*
+
         [HttpPost("pedido")]
 
-public ActionResult<string> AgregarPedido(Pedidos pedido)
-{
-    var cadeteria = datosAcceso.CargarDesdeArchivos("data/Cadeteria.json", "data/Cadetes.json");
+        public ActionResult<string> AgregarPedido(Pedidos pedido)
+        {
 
-        if (cadeteria == null) return NotFound("No se pudo cargar.");
+
+            if (cadeteria == null) return NotFound("No se pudo");
 
             var resultado = cadeteria.DarDeAltaPedido(
                     pedido.Nro,
-                    pedido.Obs,
+                   pedido.Obs,
                     pedido.NombreCliente,
                     pedido.DireccionCliente,
-                    pedido.TelefonoCliente,
+                   pedido.TelefonoCliente,
                     pedido.ReferenciaDireccion,
                     pedido.IdCadete
               );
 
             return Ok(resultado);
-        }*/
+        }
+        [HttpPut("asignar")]
+        public ActionResult<string> AsignarPedido(int idPedido, int idCadete)
+        {
+
+            if (cadeteria == null)
+                return NotFound("No se pudo cargar la cadetería.");
+
+            var resultado = cadeteria.AsignarCadeteAPedido(idPedido, idCadete);
+
+
+            return Ok(resultado);
+        }
+
+
+        [HttpPut("cambiarEstado/{idPedido}/{nuevoEstado}")]
+        
+        public ActionResult<string> CambiarEstadoPedido(int idPedido, Estado nuevoEstado)
+        {
+            var cadeteria = datosAcceso.CargarDesdeArchivos("data/Cadeteria.json", "data/Cadetes.json");
+
+            if (cadeteria == null)
+                return NotFound("No se pudo cargar la cadetería.");
+
+            var resultado = cadeteria.CambiarEstadoPedido(idPedido, nuevoEstado);
+
+            return Ok(resultado);
+        }
+[HttpPut("reasignar/{idPedido}/{idNuevoCadete}")]
+public ActionResult<string> ReasignarPedido(int idPedido, int idNuevoCadete)
+{
+    var cadeteria = datosAcceso.CargarDesdeArchivos("data/Cadeteria.json", "data/Cadetes.json");
+
+    if (cadeteria == null)
+        return NotFound("No se pudo cargar la cadetería.");
+
+    var resultado = cadeteria.ReasignarPedido(idPedido, idNuevoCadete);
+
+    
+
+    return Ok(resultado);
+}
     }
 }
 
