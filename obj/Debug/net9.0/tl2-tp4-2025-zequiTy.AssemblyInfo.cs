@@ -13,7 +13,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("tl2-tp4-2025-zequiTy")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+eaa7463bc0b5fa40ca66ba7daa48c174df8b8484")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+6afa17ce49e0a36545ffdb2bcb60b9d92466bf71")]
 [assembly: System.Reflection.AssemblyProductAttribute("tl2-tp4-2025-zequiTy")]
 [assembly: System.Reflection.AssemblyTitleAttribute("tl2-tp4-2025-zequiTy")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]
